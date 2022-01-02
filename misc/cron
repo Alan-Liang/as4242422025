@@ -1,0 +1,2 @@
+*/15 * * * * curl -sfSLR {-o,-z}/var/lib/bird/bird6_roa_dn42.conf https://dn42.burble.com/roa/dn42_roa_bird2_6.conf && chronic birdc configure
+*/15 * * * * curl -sfSLR {-o,-z}/var/lib/bird/bird_roa_dn42.conf https://dn42.burble.com/roa/dn42_roa_bird2_4.conf && chronic birdc configure
