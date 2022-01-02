@@ -2,5 +2,4 @@
 
 ln -s `pwd`/own.conf /etc/bird/own.conf
 ln -s `pwd`/../bird.conf /etc/bird/bird.conf
-mkdir -p /etc/bird/peers/
-ln -s `pwd`/peers/* /etc/bird/peers/
+ln -s `pwd`/peers /etc/bird/peers
