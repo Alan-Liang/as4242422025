@@ -1,0 +1,79 @@
+as_hkg.conf
+
+[Interface]
+ListenPort = hkg1.servers.altk.org:20977
+PrivateKey = (private key)
+Table      = off
+PostUp     = ip -4 addr add dev %i 172.20.222.33/32 peer 172.20.128.197/32
+PostUp     = ip -6 addr flush dev %i
+PostUp     = ip -6 addr add dev %i fe80::2025/128 peer fe80::977/128
+PostDown   = pkill -f "boringtun %i"
+
+[Peer]
+Endpoint   = hkg.moerail.ml
+PublicKey  = WhRf0cjwcOTM408+OKHFmVmA1i2d7mud9bmMCACLdVY=
+AllowedIPs = 172.20.0.0/14
+AllowedIPs = 172.31.0.0/16
+AllowedIPs = 10.100.0.0/14
+AllowedIPs = 10.127.0.0/16
+AllowedIPs = fd00::/8
+AllowedIPs = fe80::/10
+
+as_hkg.netdev
+
+[NetDev]
+Name = as_hkg
+Kind = wireguard
+
+[WireGuard]
+ListenPort = hkg1.servers.altk.org:20977
+PrivateKey = (private key)
+
+[WireGuardPeer]
+Endpoint   = hkg.moerail.ml
+PublicKey  = WhRf0cjwcOTM408+OKHFmVmA1i2d7mud9bmMCACLdVY=
+AllowedIPs = 172.20.0.0/14
+AllowedIPs = 172.31.0.0/16
+AllowedIPs = 10.100.0.0/14
+AllowedIPs = 10.127.0.0/16
+AllowedIPs = fd00::/8
+AllowedIPs = fe80::/10
+
+as_hkg.network
+
+[Match]
+Name = as_hkg
+
+[Network]
+DHCP = false
+IPv6AcceptRA = false
+IPForward = true
+KeepConfiguration = true
+
+[DHCP]
+CriticalConnection = true
+
+[Address]
+Address = 172.20.222.33/32
+Peer    = 172.20.128.197/32
+
+[Address]
+Address = fe80::2025/128
+Peer    = fe80::977/128
+
+as_hkg.txt
+
+Peering with:  HKG
+AS Number:     4242420977
+Location Name: hkg
+Endpoint:      hkg.moerail.ml
+Public Key:    WhRf0cjwcOTM408+OKHFmVmA1i2d7mud9bmMCACLdVY=
+Tunneled IPv4: 172.20.128.197
+Tunneled IPv6: fdec:c6a:4002::7
+Link Local:    fe80::977
+
+Hosted on: Tencent Cloud, Hong Kong, China
+* Domain names are preferred over hard-coded IP addresses, since my IP addresses might change occasionally (but no more than once a year).
+* Clearnet IPv6: hkg6.moerail.ml (2001:470:19:400::, HE tunnel broker)
+* Clearnet IPv4: hkg4.moerail.ml (129.226.101.106)
+* Peering available via both IPv6 and IPv4.
